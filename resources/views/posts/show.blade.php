@@ -30,7 +30,7 @@
 
             <section class="mt-3">
             <div id="commentField_{{ $post->id }}" class="panel panel-default" style="padding:10px; margin-top:-20px; display:none;">
-            <div id="comment_{{ $post->id }}">
+            <div id="comment_form_{{ $post->id }}">
                 <form id="commentForm_{{ $post->id }}">
                     <input type="hidden" value="{{ $post->id }}" name="post_id">
                     <div class="row"> 
@@ -43,6 +43,8 @@
                     </div>
                     
                 </form>
+            </div>
+            <div id="comment_{{ $post->id }}">
             </div>
             </div>
             </section>
@@ -64,10 +66,9 @@
 
             $(document).on('click', '.comment', function(){
                 var id = $(this).val();
-                if($('#commentField_'+id).is(':visible')){
+                if($('#commentField_'+id).is(':visible')) {
                     $('#commentField_'+id).slideUp();
-                }
-                else{
+                } else {
                     $('#commentField_'+id).slideDown();
                     getComment(id);
                 }
@@ -75,11 +76,10 @@
 
             $(document).on('click', '.submitComment', function(){
                 var id = $(this).val();
-                if($('#commenttext').val()==''){
+                if($('#commenttext').val()=='') {
                     alert('Please write a Comment First!');
-                }
-                else{
-                    var commentForm = $('#commentForm_'+id).serialize();
+                } else {
+                    var commentForm = $('#commentForm_' + id).serialize();
                     $.ajax({
                         type: 'POST',
                         url: id + '/comments',
@@ -93,20 +93,30 @@
                     
             });
          
-        });
-
-        $(document).on('click', '.like', function(){
-            var id = $(this).val();
-            $.ajax({
-                type: 'POST',
-                url: id + '/likes',
-                success: function(data){
-                    $('.likes-count').html(data);
-                },
-                error: function(xhr, status, error) {
-                    
-                }
+            $(document).on('click', '.like', function(){
+                var id = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: id + '/likes',
+                    success: function(data){
+                        $('.likes-count').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        
+                    }
+                });
             });
+
+
+            function getComment(id){
+                $.ajax({
+                    type: 'GET',
+                    url: id + '/comments',
+                    success: function(data){
+                        $('#comment_'+id).html(data); 
+                    }
+                });
+            }
         });
     </script>
 @endsection

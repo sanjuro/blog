@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -17,8 +18,8 @@ class CommentController extends Controller
     public function index(Request $request, $id)
     {
         $post = Post::find($id);
-        $comments = $post-comments;
-        return view('comments', compact('comments'));
+        $comments = $post->comments;
+        return view('comments.list', compact('comments'));
     }
 
     /**
@@ -35,7 +36,7 @@ class CommentController extends Controller
  
             $comment->user_id = $user->id;
             $comment->post_id = $id;
-            $comment->comment = $request->commenttext;
+            $comment->text = $request->commenttext;
  
             $comment->save();
  

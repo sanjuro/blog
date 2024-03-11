@@ -9,4 +9,11 @@ class Comment extends Model
 {
     use HasFactory;
 
+    /**
+     * Get the user that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
