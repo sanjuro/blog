@@ -1,0 +1,35 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+input[type="text"],
+input[type="file"],
+textarea {
+    color: black; /* Change font color to black */
+}
+
+.post {
+  
+    .row {
+        margin: 15px 5px 55px 5px;
+    }
+
+    .content {
+        margin: 0px 15px;
+    }
+
+    .created-date {
+        margin: 10px 15px;
+    }
+
+    .socials {
+        float: right;
+    }
+}
+
