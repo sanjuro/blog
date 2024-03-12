@@ -25,6 +25,10 @@ class LikeController extends Controller
                 ->where('post_id', $id)
                 ->first();
 
+            if (!$post) {
+                abort(404); // Post not found, return a 404 error
+            }
+
             if($like) {
                 return response($post->likesCount());
             } else {

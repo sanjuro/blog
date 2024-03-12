@@ -18,6 +18,11 @@ class CommentController extends Controller
     public function index(Request $request, $id)
     {
         $post = Post::find($id);
+
+        if (!$post) {
+            abort(404); // Post not found, return a 404 error
+        }
+    
         $comments = $post->comments;
         return view('comments.list', compact('comments'));
     }
